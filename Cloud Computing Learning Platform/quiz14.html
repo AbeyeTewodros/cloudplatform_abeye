@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What is natural language processing (NLP)?", options: ["A branch of artificial intelligence that focuses on the interaction between computers and humans through natural language, enabling computers to understand, interpret, and generate human language.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A branch of artificial intelligence that focuses on the interaction between computers and humans through natural language, enabling computers to understand, interpret, and generate human language." },
+            { question: "What are some applications of natural language processing?", options: ["Text classification, sentiment analysis, machine translation, named entity recognition, question answering, chatbots", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Text classification, sentiment analysis, machine translation, named entity recognition, question answering, chatbots" },
+            { question: "What is the difference between natural language processing and natural language understanding?", options: ["Natural language processing focuses on the automatic processing of human language by computers, while natural language understanding focuses on the deeper comprehension of language semantics and context.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "Natural language processing focuses on the automatic processing of human language by computers, while natural language understanding focuses on the deeper comprehension of language semantics and context." },
+            { question: "What are the challenges of natural language processing?", options: ["Ambiguity, context dependency, data sparsity, understanding semantics and pragmatics, handling informal language", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Ambiguity, context dependency, data sparsity, understanding semantics and pragmatics, handling informal language" },
+            { question: "How does natural language processing contribute to machine learning?", options: ["By providing techniques and algorithms for processing and analyzing textual data, enabling tasks such as text classification, sentiment analysis, and machine translation.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "By providing techniques and algorithms for processing and analyzing textual data, enabling tasks such as text classification, sentiment analysis, and machine translation." },
+            { question: "What is text representation in natural language processing?", options: ["The process of converting text data into a numerical or machine-readable format that can be used by machine learning algorithms.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "The process of converting text data into a numerical or machine-readable format that can be used by machine learning algorithms." },
+            { question: "What are some common techniques for text representation?", options: ["Bag-of-words model, term frequency-inverse document frequency (TF-IDF), word embeddings (e.g., Word2Vec, GloVe)", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Bag-of-words model, term frequency-inverse document frequency (TF-IDF), word embeddings (e.g., Word2Vec, GloVe)" },
+            { question: "What is the bag-of-words model?", options: ["A simple and flexible text representation technique that converts text documents into vectors of word counts, disregarding grammar and word order.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A simple and flexible text representation technique that converts text documents into vectors of word counts, disregarding grammar and word order." },
+            { question: "What is term frequency-inverse document frequency (TF-IDF)?", options: ["A statistical measure used to evaluate the importance of a word in a document relative to a collection of documents, based on the frequency of occurrence in the document and the inverse frequency of occurrence in the corpus.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A statistical measure used to evaluate the importance of a word in a document relative to a collection of documents, based on the frequency of occurrence in the document and the inverse frequency of occurrence in the corpus." },
+            { question: "What are word embeddings?", options: ["Vector representations of words in a continuous vector space, learned from large corpora using neural network-based language models.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "Vector representations of words in a continuous vector space, learned from large corpora using neural network-based language models." },
+
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

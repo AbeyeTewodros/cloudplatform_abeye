@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "Why is fairness and bias important in machine learning?", options: ["Because biased algorithms can lead to discrimination and unfair treatment of certain individuals or groups, perpetuating societal inequalities.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "Because biased algorithms can lead to discrimination and unfair treatment of certain individuals or groups, perpetuating societal inequalities." },
+            { question: "How can fairness and bias in machine learning be addressed?", options: ["By ensuring diverse and representative training data, conducting bias audits, implementing fairness-aware algorithms, and providing transparency in decision-making processes.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "By ensuring diverse and representative training data, conducting bias audits, implementing fairness-aware algorithms, and providing transparency in decision-making processes." },
+            { question: "What are some privacy concerns in machine learning?", options: ["Unauthorized data access, data breaches, re-identification attacks, loss of user control over personal information", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Unauthorized data access, data breaches, re-identification attacks, loss of user control over personal information" },
+            { question: "How can privacy concerns in machine learning be mitigated?", options: ["By implementing data anonymization techniques, ensuring data encryption in transit and at rest, adopting privacy-preserving machine learning algorithms, and obtaining informed consent from individuals.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "By implementing data anonymization techniques, ensuring data encryption in transit and at rest, adopting privacy-preserving machine learning algorithms, and obtaining informed consent from individuals." },
+            { question: "Why is transparency and explainability important in machine learning?", options: ["Because it helps build trust in AI systems by enabling users to understand how decisions are made, detect biases or errors, and hold developers and organizations accountable.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "Because it helps build trust in AI systems by enabling users to understand how decisions are made, detect biases or errors, and hold developers and organizations accountable." },
+            { question: "How can transparency and explainability be achieved in machine learning?", options: ["Through techniques such as model documentation, algorithmic transparency, interpretable machine learning models, and user-friendly interfaces for explaining predictions.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "Through techniques such as model documentation, algorithmic transparency, interpretable machine learning models, and user-friendly interfaces for explaining predictions." },
+            { question: "What is accountability and responsibility in machine learning?", options: ["The idea that developers, organizations, and stakeholders are responsible for the ethical design, deployment, and use of machine learning systems, and should be held accountable for their impact on society.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "The idea that developers, organizations, and stakeholders are responsible for the ethical design, deployment, and use of machine learning systems, and should be held accountable for their impact on society." },
+            { question: "How can accountability and responsibility be enforced in machine learning?", options: ["Through regulatory frameworks, industry standards, ethical guidelines, and mechanisms for auditing and oversight.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "Through regulatory frameworks, industry standards, ethical guidelines, and mechanisms for auditing and oversight." },
+            { question: "What are hyperparameters?", options: ["Parameters that are set before the learning process begins, such as learning rate, number of hidden layers, and number of trees in a random forest.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "Parameters that are set before the learning process begins, such as learning rate, number of hidden layers, and number of trees in a random forest." },
+            { question: "Why is fairness and bias important in machine learning?", options: ["Because biased algorithms can lead to discrimination and unfair treatment of certain individuals or groups, perpetuating societal inequalities.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "Because biased algorithms can lead to discrimination and unfair treatment of certain individuals or groups, perpetuating societal inequalities." },
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What is the Internet of Things (IoT)?", options: ["A network of interconnected devices that collect and exchange data over the internet.", "A type of cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A network of interconnected devices that collect and exchange data over the internet." },
+            { question: "What are the components of IoT architecture?", options: ["Sensors, actuators, connectivity, data processing, applications", "Servers, databases, applications, clients", "Operating systems, middleware, development tools, applications", "Virtual machines, storage, networking infrastructure"] , answer: "Sensors, actuators, connectivity, data processing, applications" },
+            { question: "What is Edge Computing?", options: ["A distributed computing paradigm that brings computation and data storage closer to the location where it is needed.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A distributed computing paradigm that brings computation and data storage closer to the location where it is needed." },
+            { question: "What are the use cases of Edge Computing?", options: ["Real-time data processing, low-latency applications, bandwidth optimization", "Scalability, cost-effectiveness, flexibility, reliability, accessibility", "Physical security, limited accessibility, high upfront costs, fixed capacity", "Vendor lock-in, proprietary software, limited customization"] , answer: "Real-time data processing, low-latency applications, bandwidth optimization" },
+            { question: "How are IoT devices integrated with cloud platforms?", options: ["By connecting IoT devices to cloud-based services for data storage, processing, and analysis.", "By installing IoT devices in data centers.", "By developing proprietary IoT protocols.", "By deploying IoT devices in edge computing environments."], answer: "By connecting IoT devices to cloud-based services for data storage, processing, and analysis." },
+            { question: "What is the role of Edge Computing in IoT deployments?", options: ["It enables real-time data processing and analytics at the edge, reducing latency and bandwidth usage.", "It provides on-demand access to hardware resources such as servers and storage.", "It eliminates the need for users to install, maintain, and update software locally.", "It enables users to access computing resources over the internet without the need for local infrastructure."], answer: "It enables real-time data processing and analytics at the edge, reducing latency and bandwidth usage." },
+            { question: "What are some challenges in securing IoT deployments?", options: ["Authentication and authorization, encryption, secure device provisioning and management", "Scalability, cost-effectiveness, flexibility, reliability, accessibility", "Physical security, limited accessibility, high upfront costs, fixed capacity", "Vendor lock-in, proprietary software, limited customization"], answer: "Authentication and authorization, encryption, secure device provisioning and management" },
+            { question: "What is the significance of real-time data processing in IoT?", options: ["It allows for immediate decision-making based on incoming data streams.", "It provides on-demand access to hardware resources such as servers and storage.", "It eliminates the need for users to install, maintain, and update software locally.", "It enables users to access computing resources over the internet without the need for local infrastructure."], answer: "It allows for immediate decision-making based on incoming data streams." },
+            { question: "How does Edge Computing address the limitations of traditional cloud computing in IoT deployments?", options: ["By reducing latency, bandwidth usage, and dependency on centralized data centers.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "By reducing latency, bandwidth usage, and dependency on centralized data centers." },
+            { question: "What are some privacy-preserving techniques for IoT data?", options: ["Anonymization, data encryption, access control, decentralized processing", "Scalability, cost-effectiveness, flexibility, reliability, accessibility", "Physical security, limited accessibility, high upfront costs, fixed capacity", "Vendor lock-in, proprietary software, limited customization"], answer: "Anonymization, data encryption, access control, decentralized processing" },
+
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What is cloud networking?", options: ["A set of technologies and protocols that enable communication and data transfer between cloud resources and users over the internet.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A set of technologies and protocols that enable communication and data transfer between cloud resources and users over the internet." },
+            { question: "What are the benefits of cloud networking?", options: ["Scalability, flexibility, reliability, performance, cost-effectiveness", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Scalability, flexibility, reliability, performance, cost-effectiveness" },
+            { question: "What is a content delivery network (CDN)?", options: ["A distributed network of servers that deliver web content to users based on their geographic location, improving performance and reducing latency.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A distributed network of servers that deliver web content to users based on their geographic location, improving performance and reducing latency." },
+            { question: "What are the benefits of using a CDN?", options: ["Improved website performance, reduced latency, increased reliability, enhanced security", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Improved website performance, reduced latency, increased reliability, enhanced security" },
+            { question: "How does a CDN improve website performance?", options: ["By caching content on edge servers closer to users, reducing the distance data needs to travel and improving load times.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "By caching content on edge servers closer to users, reducing the distance data needs to travel and improving load times." },
+            { question: "What is latency in networking?", options: ["The time it takes for data to travel from its source to its destination, often measured in milliseconds.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "The time it takes for data to travel from its source to its destination, often measured in milliseconds." },
+            { question: "How does latency impact user experience?", options: ["High latency can lead to slow loading times, poor performance, and user frustration.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "High latency can lead to slow loading times, poor performance, and user frustration." },
+            { question: "What is network security?", options: ["The practice of protecting a network from unauthorized access, misuse, modification, or denial of service.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "The practice of protecting a network from unauthorized access, misuse, modification, or denial of service." },
+            { question: "What are some common network security threats?", options: ["Malware, phishing, ransomware, DDoS attacks, insider threats", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Malware, phishing, ransomware, DDoS attacks, insider threats" },
+            { question: "How can network security be improved in cloud environments?", options: ["By implementing encryption, access control, intrusion detection systems, and regular security updates.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "By implementing encryption, access control, intrusion detection systems, and regular security updates." },
+
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

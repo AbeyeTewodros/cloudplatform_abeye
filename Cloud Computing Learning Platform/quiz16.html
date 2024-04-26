@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What is the main goal of edge computing in IoT?", options: ["Reducing latency", "Increasing cloud dependency", "Enhancing data security", "Centralizing data processing"], answer: "Reducing latency" },
+            { question: "Which cloud provider offers IoT services such as AWS IoT and Azure IoT Hub?", options: ["Amazon Web Services (AWS)", "Google Cloud Platform", "IBM Cloud", "Oracle Cloud"], answer: "Amazon Web Services (AWS)" },
+            { question: "What are the key components of an IoT architecture?", options: ["Devices, Connectivity, Cloud", "Networks, Databases, Analytics", "Servers, Storage, Applications", "Security, Compliance, Governance"], answer: "Devices, Connectivity, Cloud" },
+            { question: "What is the purpose of MQTT (Message Queuing Telemetry Transport) in IoT?", options: ["Real-time communication between devices and servers", "Data storage and retrieval", "User authentication and authorization", "Static content delivery"], answer: "Real-time communication between devices and servers" },
+            { question: "Which protocol is commonly used for secure communication between IoT devices and cloud platforms?", options: ["MQTT over SSL/TLS", "HTTP", "UDP", "FTP"], answer: "MQTT over SSL/TLS" },
+            { question: "What is a common cloud-based machine learning platform provided by Google Cloud Platform?", options: ["TensorFlow", "PyTorch", "Caffe", "Keras"], answer: "TensorFlow" },
+            { question: "Which cloud service offers AI model training and deployment through services like Azure Machine Learning and AI Platform?", options: ["Microsoft Azure", "Amazon Web Services (AWS)", "IBM Cloud", "Alibaba Cloud"], answer: "Microsoft Azure" },
+            { question: "What is the role of neural networks in artificial intelligence?", options: ["Learning patterns from data", "Storing and retrieving information", "Managing database queries", "Analyzing network traffic"], answer: "Learning patterns from data" },
+            { question: "Which machine learning technique is used for clustering similar data points together?", options: ["K-means clustering", "Regression analysis", "Decision trees", "Random forest"], answer: "K-means clustering" },
+            { question: "What is the primary goal of natural language processing (NLP) in AI?", options: ["Understanding and generating human language", "Translating text between languages", "Speech recognition", "Image processing"], answer: "Understanding and generating human language" },
+
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

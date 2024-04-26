@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What are the core principles of cloud-native application development?", options: ["Scalability and flexibility", "Monolithic architecture", "Containerization", "Serverless computing"], answer: "Scalability and flexibility" },
+            { question: "What technology is commonly used for container orchestration in cloud-native environments?", options: ["Docker Swarm", "Kubernetes", "Apache Mesos", "Nomad"], answer: "Kubernetes" },
+            { question: "What are the benefits of using a serverless architecture in cloud application development?", options: ["Reduced operational overhead", "Limited scalability", "Dependency on server management", "High infrastructure costs"], answer: "Reduced operational overhead" },
+            { question: "What is the purpose of Infrastructure as Code (IaC) in cloud development?", options: ["Automating infrastructure provisioning", "Managing physical servers", "Debugging application code", "Deploying manual configurations"], answer: "Automating infrastructure provisioning" },
+            { question: "Which cloud service offers a managed Kubernetes service called EKS (Elastic Kubernetes Service)?", options: ["Amazon Web Services (AWS)", "Microsoft Azure", "Google Cloud Platform", "IBM Cloud"], answer: "Amazon Web Services (AWS)" },
+            { question: "What are some commonly used big data processing frameworks in the cloud?", options: ["Hadoop", "Apache Spark", "Kafka", "Storm"], answer: "Apache Spark" },
+            { question: "Which cloud service offers machine learning and AI services such as Amazon SageMaker and Google AI Platform?", options: ["Amazon Web Services (AWS)", "Microsoft Azure", "IBM Cloud", "Alibaba Cloud"], answer: "Amazon Web Services (AWS)" },
+            { question: "What is the purpose of data lakes in big data analytics?", options: ["Storing structured data only", "Providing real-time analytics", "Storing and analyzing large volumes of data", "Hosting relational databases"], answer: "Storing and analyzing large volumes of data" },
+            { question: "Which technology is commonly used for real-time data streaming and processing in big data applications?", options: ["Apache Kafka", "Apache Hadoop", "Apache Spark", "Apache Storm"], answer: "Apache Kafka" },
+            { question: "What is the primary goal of machine learning in big data analytics?", options: ["Predictive analytics", "Real-time monitoring", "Data visualization", "Database management"], answer: "Predictive analytics" },
+
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

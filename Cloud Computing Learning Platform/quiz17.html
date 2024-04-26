@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+        { question: "How is named entity recognition performed?", options: ["Using techniques such as rule-based systems, statistical models, conditional random fields (CRF), or deep learning architectures like recurrent neural networks (RNNs) and transformers.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "Using techniques such as rule-based systems, statistical models, conditional random fields (CRF), or deep learning architectures like recurrent neural networks (RNNs) and transformers." },
+        { question: "What are question answering systems?", options: ["AI systems that take natural language questions as input and provide human-like answers based on knowledge databases, text corpora, or structured data.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "AI systems that take natural language questions as input and provide human-like answers based on knowledge databases, text corpora, or structured data." },
+        { question: "What are some challenges of question answering systems?", options: ["Understanding natural language questions, retrieving relevant information, generating accurate and concise answers, handling ambiguity and context", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Understanding natural language questions, retrieving relevant information, generating accurate and concise answers, handling ambiguity and context" },
+        { question: "How do question answering systems work?", options: ["They use techniques such as information retrieval, natural language understanding, and knowledge representation to process questions, search for relevant information, and generate or extract answers.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "They use techniques such as information retrieval, natural language understanding, and knowledge representation to process questions, search for relevant information, and generate or extract answers." },
+        { question: "What are chatbots?", options: ["Computer programs designed to simulate conversation with human users, typically through text or voice interfaces, using natural language processing and machine learning techniques.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "Computer programs designed to simulate conversation with human users, typically through text or voice interfaces, using natural language processing and machine learning techniques." },
+        { question: "What are some applications of chatbots?", options: ["Customer service, virtual assistants, information retrieval, appointment scheduling, entertainment", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Customer service, virtual assistants, information retrieval, appointment scheduling, entertainment" },
+        { question: "How do chatbots work?", options: ["They analyze user inputs, generate appropriate responses, and engage in conversations using predefined rules, machine learning models, or a combination of these approaches.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "They analyze user inputs, generate appropriate responses, and engage in conversations using predefined rules, machine learning models, or a combination of these approaches." },
+        { question: "What is text classification?", options: ["A natural language processing task that involves categorizing text documents into predefined classes or categories based on their content.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A natural language processing task that involves categorizing text documents into predefined classes or categories based on their content." },
+        { question: "What are some common applications of text classification?", options: ["Email spam detection, sentiment analysis, topic classification, language identification, document categorization", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Information extraction, question answering, document summarization, content recommendation, entity linking" },
+        { question: "How is named entity recognition performed?", options: ["Using techniques such as rule-based systems, statistical models, conditional random fields (CRF), or deep learning architectures like recurrent neural networks (RNNs) and transformers.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "Using techniques such as rule-based systems, statistical models, conditional random fields (CRF), or deep learning architectures like recurrent neural networks (RNNs) and transformers." },
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

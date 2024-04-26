@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What are the security challenges in IoT deployments?", options: ["Authentication and authorization, encryption, secure device provisioning and management", "Scalability, cost-effectiveness, flexibility, reliability, accessibility", "Physical security, limited accessibility, high upfront costs, fixed capacity", "Vendor lock-in, proprietary software, limited customization"], answer: "Authentication and authorization, encryption, secure device provisioning and management" },
+            { question: "How do authentication mechanisms contribute to IoT security?", options: ["By verifying the identity of users and devices accessing the IoT network.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "By verifying the identity of users and devices accessing the IoT network." },
+            { question: "What is encryption and why is it important in IoT?", options: ["Encryption is the process of encoding data to prevent unauthorized access, ensuring data confidentiality and integrity in IoT deployments.", "Encryption is a type of cloud computing model.", "Encryption is a hardware component used in IoT devices.", "Encryption is a programming language for web development."], answer: "Encryption is the process of encoding data to prevent unauthorized access, ensuring data confidentiality and integrity in IoT deployments." },
+            { question: "What are the key principles of secure device provisioning?", options: ["Ensuring that IoT devices are securely initialized, configured, and authenticated before being connected to the network.", "Providing on-demand access to hardware resources such as servers and storage.", "Eliminating the need for users to install, maintain, and update software locally.", "Enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "Ensuring that IoT devices are securely initialized, configured, and authenticated before being connected to the network." },
+            { question: "How does access control enhance IoT security?", options: ["By regulating the actions and permissions of users and devices within the IoT network.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "By regulating the actions and permissions of users and devices within the IoT network." },
+            { question: "What are some privacy-preserving techniques for IoT data?", options: ["Anonymization, data encryption, access control, decentralized processing", "Scalability, cost-effectiveness, flexibility, reliability, accessibility", "Physical security, limited accessibility, high upfront costs, fixed capacity", "Vendor lock-in, proprietary software, limited customization"], answer: "Anonymization, data encryption, access control, decentralized processing" },
+            { question: "What is the role of decentralized processing in IoT privacy?", options: ["By performing data processing and analysis locally on IoT devices, reducing the exposure of sensitive information to external networks.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "By performing data processing and analysis locally on IoT devices, reducing the exposure of sensitive information to external networks." },
+            { question: "How does encryption contribute to data privacy in IoT?", options: ["By encoding data to prevent unauthorized access, ensuring confidentiality and integrity of sensitive information transmitted over the network.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "By encoding data to prevent unauthorized access, ensuring confidentiality and integrity of sensitive information transmitted over the network." },
+            { question: "What are the benefits of anonymization in IoT deployments?", options: ["By anonymizing data, personal and sensitive information can be protected, enhancing privacy and reducing the risk of unauthorized access.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "By anonymizing data, personal and sensitive information can be protected, enhancing privacy and reducing the risk of unauthorized access." },
+            { question: "How can IoT security be improved through regular updates and patches?", options: ["By addressing vulnerabilities and fixing bugs in IoT devices and software to prevent exploitation by malicious actors.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "By addressing vulnerabilities and fixing bugs in IoT devices and software to prevent exploitation by malicious actors." },
+
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

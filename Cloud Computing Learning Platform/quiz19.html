@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What is natural language processing (NLP)?", options: ["A field of artificial intelligence (AI) that focuses on the interaction between computers and humans through natural language.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "A field of artificial intelligence (AI) that focuses on the interaction between computers and humans through natural language." },
+            { question: "What are some applications of natural language processing (NLP)?", options: ["Information extraction, question answering, document summarization, content recommendation, entity linking", "Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Public, Private, and Hybrid Cloud", "Software development, application deployment, middleware, runtime environments", "Email services, office productivity suites, customer relationship management (CRM) software"], answer: "Information extraction, question answering, document summarization, content recommendation, entity linking" },
+            { question: "How is named entity recognition performed?", options: ["Using techniques such as rule-based systems, statistical models, conditional random fields (CRF), or deep learning architectures like recurrent neural networks (RNNs) and transformers.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "Using techniques such as rule-based systems, statistical models, conditional random fields (CRF), or deep learning architectures like recurrent neural networks (RNNs) and transformers." },
+            { question: "What is the purpose of hierarchical clustering?", options: ["To group data into a tree of clusters, where each node represents a cluster of similar data points.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "To group data into a tree of clusters, where each node represents a cluster of similar data points." },
+            { question: "What are some common evaluation metrics for clustering algorithms?", options: ["Silhouette score, Davies-Bouldin index, Calinski-Harabasz index", "Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Public, Private, and Hybrid Cloud", "Software development, application deployment, middleware, runtime environments", "Email services, office productivity suites, customer relationship management (CRM) software"], answer: "Silhouette score, Davies-Bouldin index, Calinski-Harabasz index" },
+            { question: "What is the purpose of principal component analysis (PCA)?", options: ["To reduce the dimensionality of a dataset while preserving most of its variability, by projecting data onto a lower-dimensional subspace.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "To reduce the dimensionality of a dataset while preserving most of its variability, by projecting data onto a lower-dimensional subspace." },
+            { question: "What is anomaly detection in machine learning?", options: ["The identification of rare or unexpected observations in a dataset, which may indicate potential issues or interesting patterns.", "Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Public, Private, and Hybrid Cloud", "Software development, application deployment, middleware, runtime environments", "Email services, office productivity suites, customer relationship management (CRM) software"], answer: "The identification of rare or unexpected observations in a dataset, which may indicate potential issues or interesting patterns." },
+            { question: "What is the purpose of feature engineering in machine learning?", options: ["To create new input features from existing ones, enhancing the performance of machine learning models.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "To create new input features from existing ones, enhancing the performance of machine learning models." },
+            { question: "What is bias-variance tradeoff in machine learning?", options: ["The balance between bias (underfitting) and variance (overfitting) in model performance, where reducing one typically increases the other.", "Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Public, Private, and Hybrid Cloud", "Software development, application deployment, middleware, runtime environments", "Email services, office productivity suites, customer relationship management (CRM) software"], answer: "The balance between bias (underfitting) and variance (overfitting) in model performance, where reducing one typically increases the other." },
+            { question: "What is cross-validation in machine learning?", options: ["A technique used to assess the generalization performance of a model by splitting the data into multiple subsets for training and testing.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "A technique used to assess the generalization performance of a model by splitting the data into multiple subsets for training and testing." }
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

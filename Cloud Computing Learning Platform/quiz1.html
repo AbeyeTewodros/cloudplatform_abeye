@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What is cloud computing?", options: ["A model for delivering on-demand computing resources over the internet", "A type of physical server", "A programming language", "A hardware component"], answer: "A model for delivering on-demand computing resources over the internet" },
+            { question: "What are the key characteristics of cloud computing?", options: ["On-demand self-service, broad network access, resource pooling, rapid elasticity, measured service", "Single tenancy, limited access, manual resource provisioning, slow scalability, unpredictable billing", "Legacy infrastructure, proprietary protocols, fixed capacity, high upfront costs", "Manual resource allocation, limited connectivity, proprietary software, fixed pricing"], answer: "On-demand self-service, broad network access, resource pooling, rapid elasticity, measured service" },
+            { question: "What are the deployment models in cloud computing?", options: ["Public cloud, private cloud, hybrid cloud, community cloud", "Mainframe, supercomputer, server cluster, grid computing", "Local network, wide area network, metropolitan area network", "Shared hosting, virtual private server, dedicated server, colocation"], answer: "Public cloud, private cloud, hybrid cloud, community cloud" },
+            { question: "What are the essential characteristics of cloud computing?", options: ["On-demand self-service, broad network access, resource pooling, rapid elasticity, measured service", "Single tenancy, limited access, manual resource provisioning, slow scalability, unpredictable billing", "Legacy infrastructure, proprietary protocols, fixed capacity, high upfront costs", "Manual resource allocation, limited connectivity, proprietary software, fixed pricing"], answer: "On-demand self-service, broad network access, resource pooling, rapid elasticity, measured service" },
+            { question: "What are the benefits of cloud computing?", options: ["Scalability, cost-effectiveness, flexibility, reliability, accessibility", "Physical security, limited accessibility, high upfront costs, fixed capacity", "Vendor lock-in, proprietary software, limited customization, data sovereignty concerns", "Complexity, lack of control, limited scalability, slow innovation"], answer: "Scalability, cost-effectiveness, flexibility, reliability, accessibility" },
+            { question: "What are some examples of cloud computing services?", options: ["Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Function as a Service (FaaS)", "Data centers, networking hardware, server racks, cooling systems", "Operating systems, databases, development tools, applications", "Cables, routers, switches, firewalls"], answer: "Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Function as a Service (FaaS)" },
+            { question: "What is the difference between cloud computing and traditional IT infrastructure?", options: ["Cloud computing provides on-demand access to computing resources over the internet, while traditional IT infrastructure requires physical hardware and on-premises management.", "Cloud computing is more expensive than traditional IT infrastructure.", "Cloud computing is less scalable than traditional IT infrastructure.", "Cloud computing requires specialized skills, while traditional IT infrastructure is easy to manage."], answer: "Cloud computing provides on-demand access to computing resources over the internet, while traditional IT infrastructure requires physical hardware and on-premises management." },
+            { question: "What is the role of virtualization in cloud computing?", options: ["It enables multiple virtual machines to run on a single physical server, maximizing resource utilization and flexibility.", "It provides physical security for cloud servers.", "It optimizes network bandwidth in cloud environments.", "It reduces the need for encryption in cloud networks."], answer: "It enables multiple virtual machines to run on a single physical server, maximizing resource utilization and flexibility." },
+            { question: "What are the main components of a cloud architecture?", options: ["Frontend, backend, data storage, networking", "Server, database, application, client", "Virtualization layer, orchestration layer, management layer, networking layer", "Operating system, middleware, application, data"], answer: "Virtualization layer, orchestration layer, management layer, networking layer" },
+            { question: "What is the purpose of cloud service models (IaaS, PaaS, SaaS)?", options: ["To provide different levels of abstraction and management for cloud consumers.", "To categorize cloud providers based on their geographical locations.", "To determine the physical hardware specifications of cloud servers.", "To differentiate between public and private cloud deployments."], answer: "To provide different levels of abstraction and management for cloud consumers." },
+
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

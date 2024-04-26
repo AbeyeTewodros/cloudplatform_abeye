@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What is virtualization?", options: ["A technology that enables the creation of multiple virtual instances of computing resources on a single physical hardware.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A technology that enables the creation of multiple virtual instances of computing resources on a single physical hardware." },
+            { question: "What are the benefits of virtualization?", options: ["Resource optimization, cost reduction, flexibility, scalability, disaster recovery", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Resource optimization, cost reduction, flexibility, scalability, disaster recovery" },
+            { question: "What is a hypervisor?", options: ["A software layer that enables multiple virtual machines to run on a single physical server, managing their resources and interactions with the underlying hardware.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A software layer that enables multiple virtual machines to run on a single physical server, managing their resources and interactions with the underlying hardware." },
+            { question: "What are the types of hypervisors?", options: ["Type 1 (bare-metal) hypervisors and Type 2 (hosted) hypervisors", "Public cloud, private cloud, hybrid cloud", "Single tenancy, multi-tenancy", "Mainframe, supercomputer, server cluster, grid computing"], answer: "Type 1 (bare-metal) hypervisors and Type 2 (hosted) hypervisors" },
+            { question: "What is containerization?", options: ["A lightweight form of virtualization that encapsulates applications and their dependencies into portable containers, allowing for consistent deployment across different environments.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A lightweight form of virtualization that encapsulates applications and their dependencies into portable containers, allowing for consistent deployment across different environments." },
+            { question: "What are the advantages of containerization compared to virtualization?", options: ["Greater efficiency, faster deployment, higher portability, improved scalability", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Greater efficiency, faster deployment, higher portability, improved scalability" },
+            { question: "What is Docker?", options: ["A popular platform for containerization that simplifies the process of building, deploying, and managing containers.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A popular platform for containerization that simplifies the process of building, deploying, and managing containers." },
+            { question: "What is Kubernetes?", options: ["An open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "An open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications." },
+            { question: "What is the role of Kubernetes in containerized environments?", options: ["To automate container deployment, scaling, and management, ensuring consistency and efficiency across distributed systems.", "To provide on-demand access to hardware resources such as servers and storage.", "To eliminate the need for users to install, maintain, and update software locally.", "To enable users to access computing resources over the internet without the need for local infrastructure."], answer: "To automate container deployment, scaling, and management, ensuring consistency and efficiency across distributed systems." },
+            { question: "How does containerization contribute to DevOps practices?", options: ["By enabling developers to build, test, and deploy applications more efficiently and consistently across different environments.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "By enabling developers to build, test, and deploy applications more efficiently and consistently across different environments." },
+ 
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

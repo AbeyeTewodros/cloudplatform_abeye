@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What is sentiment analysis in NLP?", options: ["The process of analyzing text data to determine the sentiment or emotion expressed within it, such as positive, negative, or neutral.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "The process of analyzing text data to determine the sentiment or emotion expressed within it, such as positive, negative, or neutral." },
+            { question: "What are some challenges in natural language processing (NLP)?", options: ["Ambiguity, context, data quality, language variability, computational complexity", "Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Public, Private, and Hybrid Cloud", "Software development, application deployment, middleware, runtime environments", "Email services, office productivity suites, customer relationship management (CRM) software"], answer: "Ambiguity, context, data quality, language variability, computational complexity" },
+            { question: "What is the purpose of topic modeling in NLP?", options: ["To identify the main topics or themes present in a collection of text documents.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "To identify the main topics or themes present in a collection of text documents." },
+            { question: "What are some common algorithms used in machine learning for NLP tasks?", options: ["Word embeddings (Word2Vec, GloVe), recurrent neural networks (RNNs), long short-term memory (LSTM) networks, convolutional neural networks (CNNs)", "Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Public, Private, and Hybrid Cloud", "Software development, application deployment, middleware, runtime environments", "Email services, office productivity suites, customer relationship management (CRM) software"], answer: "Word embeddings (Word2Vec, GloVe), recurrent neural networks (RNNs), long short-term memory (LSTM) networks, convolutional neural networks (CNNs)" },
+            { question: "What is a hybrid cloud?", options: ["A cloud computing model that combines public and private cloud environments, allowing data and applications to be shared between them.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "A cloud computing model that combines public and private cloud environments, allowing data and applications to be shared between them." },
+            { question: "What is a community cloud?", options: ["A cloud computing model that serves a specific community or group of organizations with shared concerns, such as compliance requirements or business objectives.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "A cloud computing model that serves a specific community or group of organizations with shared concerns, such as compliance requirements or business objectives." },
+            { question: "What is a multicloud strategy?", options: ["An approach to cloud computing that involves using services from multiple cloud providers to meet different business needs.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "An approach to cloud computing that involves using services from multiple cloud providers to meet different business needs." },
+            { question: "What is data analytics?", options: ["The process of examining data sets to draw conclusions about the information they contain, often with the aid of specialized systems and software.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "The process of examining data sets to draw conclusions about the information they contain, often with the aid of specialized systems and software." },
+            { question: "What is business intelligence (BI)?", options: ["The use of data analysis tools and techniques to inform decision-making and improve business performance.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "The use of data analysis tools and techniques to inform decision-making and improve business performance." },
+            { question: "What are some common techniques used in data analytics?", options: ["Descriptive analytics, diagnostic analytics, predictive analytics, prescriptive analytics", "Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Public, Private, and Hybrid Cloud", "Software development, application deployment, middleware, runtime environments", "Email services, office productivity suites, customer relationship management (CRM) software"], answer: "Descriptive analytics, diagnostic analytics, predictive analytics, prescriptive analytics" },
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

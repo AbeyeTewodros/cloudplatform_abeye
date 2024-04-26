@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What is a convolutional neural network (CNN) commonly used for in computer vision tasks?", options: ["Image classification, object detection, image segmentation", "Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Public, Private, and Hybrid Cloud", "Software development, application deployment, middleware, runtime environments", "Email services, office productivity suites, customer relationship management (CRM) software"], answer: "Image classification, object detection, image segmentation" },
+            { question: "What is transfer learning in machine learning?", options: ["A technique where a pre-trained model is used as a starting point for a new task, allowing for faster training and better performance with limited data.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "A technique where a pre-trained model is used as a starting point for a new task, allowing for faster training and better performance with limited data." },
+            { question: "What are some common activation functions used in neural networks?", options: ["Sigmoid, ReLU (Rectified Linear Unit), tanh (Hyperbolic Tangent), softmax", "Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Public, Private, and Hybrid Cloud", "Software development, application deployment, middleware, runtime environments", "Email services, office productivity suites, customer relationship management (CRM) software"], answer: "Sigmoid, ReLU (Rectified Linear Unit), tanh (Hyperbolic Tangent), softmax" },
+            { question: "What is a recurrent neural network (RNN) commonly used for in sequence data?", options: ["Sequence prediction, time series forecasting, natural language processing (NLP)", "Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Public, Private, and Hybrid Cloud", "Software development, application deployment, middleware, runtime environments", "Email services, office productivity suites, customer relationship management (CRM) software"], answer: "Sequence prediction, time series forecasting, natural language processing (NLP)" },
+            { question: "What is unsupervised learning in machine learning?", options: ["A type of learning where the model learns from unlabeled data, finding patterns and structure without explicit guidance.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "A type of learning where the model learns from unlabeled data, finding patterns and structure without explicit guidance." },
+            { question: "What is reinforcement learning in machine learning?", options: ["A type of learning where an agent learns to make decisions by interacting with an environment and receiving rewards or penalties.", "Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Public, Private, and Hybrid Cloud", "Software development, application deployment, middleware, runtime environments", "Email services, office productivity suites, customer relationship management (CRM) software"], answer: "A type of learning where an agent learns to make decisions by interacting with an environment and receiving rewards or penalties." },
+            { question: "What is deep learning?", options: ["A subset of machine learning where artificial neural networks with multiple layers learn to represent data hierarchically.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "A subset of machine learning where artificial neural networks with multiple layers learn to represent data hierarchically." },
+            { question: "What is batch normalization in neural networks?", options: ["A technique used to normalize the inputs of each layer, improving the training speed and stability of neural networks.", "Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Public, Private, and Hybrid Cloud", "Software development, application deployment, middleware, runtime environments", "Email services, office productivity suites, customer relationship management (CRM) software"], answer: "A technique used to normalize the inputs of each layer, improving the training speed and stability of neural networks." },
+            { question: "What is the purpose of dropout regularization in neural networks?", options: ["To prevent overfitting by randomly dropping out units (hidden and visible) during the training phase.", "A cloud computing model that provides virtualized computing resources over the internet, including virtual machines, storage, and networking infrastructure.", "A cloud computing model that offers development tools, middleware, and runtime environments for building, deploying, and managing applications.", "A cloud computing model that delivers software applications over the internet on a subscription basis."], answer: "To prevent overfitting by randomly dropping out units (hidden and visible) during the training phase." },
+            { question: "What is the objective of k-means clustering algorithm?", options: ["To partition a dataset into clusters based on similarity, with each data point belonging to the cluster with the nearest mean.", "Infrastructure as a Service (IaaS), Platform as a Service (PaaS), Software as a Service (SaaS), Public, Private, and Hybrid Cloud", "Software development, application deployment, middleware, runtime environments", "Email services, office productivity suites, customer relationship management (CRM) software"], answer: "To partition a dataset into clusters based on similarity, with each data point belonging to the cluster with the nearest mean." },
+
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

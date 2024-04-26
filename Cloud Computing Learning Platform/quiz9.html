@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What are cloud computing platforms?", options: ["Infrastructure, platform, and software services provided by cloud service providers for building, deploying, and managing applications.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "Infrastructure, platform, and software services provided by cloud service providers for building, deploying, and managing applications." },
+            { question: "What are the key components of cloud computing platforms?", options: ["Compute, storage, networking, databases, analytics, machine learning, IoT, security, developer tools", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Compute, storage, networking, databases, analytics, machine learning, IoT, security, developer tools" },
+            { question: "What is Infrastructure as a Service (IaaS)?", options: ["A cloud computing service that provides virtualized computing resources over the internet, such as virtual machines, storage, and networking.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A cloud computing service that provides virtualized computing resources over the internet, such as virtual machines, storage, and networking." },
+            { question: "What is Platform as a Service (PaaS)?", options: ["A cloud computing service that provides a platform for developers to build, deploy, and manage applications without the complexity of infrastructure management.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A cloud computing service that provides a platform for developers to build, deploy, and manage applications without the complexity of infrastructure management." },
+            { question: "What is Software as a Service (SaaS)?", options: ["A cloud computing service that delivers software applications over the internet on a subscription basis, eliminating the need for users to install, maintain, and update software locally.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A cloud computing service that delivers software applications over the internet on a subscription basis, eliminating the need for users to install, maintain, and update software locally." },
+            { question: "What is Function as a Service (FaaS)?", options: ["A cloud computing service that allows developers to execute code in response to events without the need to manage server infrastructure.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A cloud computing service that allows developers to execute code in response to events without the need to manage server infrastructure." },
+            { question: "What are the benefits of Function as a Service (FaaS)?", options: ["Scalability, cost-effectiveness, reduced operational overhead, event-driven architecture", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Scalability, cost-effectiveness, reduced operational overhead, event-driven architecture" },
+            { question: "What is serverless computing?", options: ["A cloud computing model where cloud providers manage the infrastructure and automatically provision, scale, and manage server resources based on demand, allowing developers to focus on writing code without worrying about server management.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A cloud computing model where cloud providers manage the infrastructure and automatically provision, scale, and manage server resources based on demand, allowing developers to focus on writing code without worrying about server management." },
+            { question: "What is cloud-native application development?", options: ["The practice of building and running applications that leverage cloud computing principles, such as microservices, containerization, and continuous delivery.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "The practice of building and running applications that leverage cloud computing principles, such as microservices, containerization, and continuous delivery." },
+            { question: "What are the key characteristics of cloud-native applications?", options: ["Scalability, resilience, agility, DevOps culture, automation, observability", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Scalability, resilience, agility, DevOps culture, automation, observability" },
+            
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What is a neural network?", options: ["A computational model inspired by the structure and function of the human brain, composed of interconnected nodes called neurons.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A computational model inspired by the structure and function of the human brain, composed of interconnected nodes called neurons." },
+            { question: "What are the layers of a neural network?", options: ["Input layer, hidden layers, output layer", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Input layer, hidden layers, output layer" },
+            { question: "What is deep learning?", options: ["A subfield of machine learning that focuses on training deep neural networks with many layers, enabling them to learn complex patterns from data.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A subfield of machine learning that focuses on training deep neural networks with many layers, enabling them to learn complex patterns from data." },
+            { question: "What are the benefits of deep learning?", options: ["Improved performance on complex tasks, automatic feature extraction, scalability", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Improved performance on complex tasks, automatic feature extraction, scalability" },
+            { question: "What is a convolutional neural network (CNN)?", options: ["A type of neural network designed for processing structured grid data, commonly used in image and video recognition tasks.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A type of neural network designed for processing structured grid data, commonly used in image and video recognition tasks." },
+            { question: "What are the key components of a CNN?", options: ["Convolutional layers, pooling layers, fully connected layers", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Convolutional layers, pooling layers, fully connected layers" },
+            { question: "What is a recurrent neural network (RNN)?", options: ["A type of neural network designed for sequential data processing, capable of capturing temporal dependencies in data.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A type of neural network designed for sequential data processing, capable of capturing temporal dependencies in data." },
+            { question: "What are the applications of recurrent neural networks?", options: ["Natural language processing, time series prediction, speech recognition, sequence generation", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Natural language processing, time series prediction, speech recognition, sequence generation" },
+            { question: "What is transfer learning?", options: ["A machine learning technique where a model trained on one task is reused as the starting point for a model on a second task, often with limited data.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A machine learning technique where a model trained on one task is reused as the starting point for a model on a second task, often with limited data." },
+            { question: "What are the advantages of transfer learning?", options: ["Faster training, improved performance, reduced data requirements, leveraging existing knowledge", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Faster training, improved performance, reduced data requirements, leveraging existing knowledge" },
+
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

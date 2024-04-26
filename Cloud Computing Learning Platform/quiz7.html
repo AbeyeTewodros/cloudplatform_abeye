@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What is cloud storage?", options: ["A service that allows users to store and retrieve data over the internet from remote servers.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A service that allows users to store and retrieve data over the internet from remote servers." },
+            { question: "What are the benefits of cloud storage?", options: ["Scalability, cost-effectiveness, durability, accessibility, reliability", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Scalability, cost-effectiveness, durability, accessibility, reliability" },
+            { question: "What is object storage?", options: ["A storage architecture that manages data as objects, each containing metadata and a unique identifier, allowing for scalable and efficient storage and retrieval.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A storage architecture that manages data as objects, each containing metadata and a unique identifier, allowing for scalable and efficient storage and retrieval." },
+            { question: "What are some examples of cloud storage providers?", options: ["Amazon S3, Google Cloud Storage, Microsoft Azure Blob Storage", "Apple, Facebook, Twitter", "IBM, Oracle, Salesforce", "Intel, Cisco, Adobe"], answer: "Amazon S3, Google Cloud Storage, Microsoft Azure Blob Storage" },
+            { question: "What is a database in the context of cloud computing?", options: ["A structured collection of data that is stored and organized for easy access, retrieval, and management.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A structured collection of data that is stored and organized for easy access, retrieval, and management." },
+            { question: "What are the types of databases used in cloud computing?", options: ["Relational databases, NoSQL databases, NewSQL databases", "Public cloud, private cloud, hybrid cloud", "Single tenancy, multi-tenancy", "Mainframe, supercomputer, server cluster, grid computing"], answer: "Relational databases, NoSQL databases, NewSQL databases" },
+            { question: "What is a relational database?", options: ["A type of database that organizes data into tables with rows and columns, and establishes relationships between them using keys.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A type of database that organizes data into tables with rows and columns, and establishes relationships between them using keys." },
+            { question: "What is NoSQL?", options: ["A type of database that is optimized for handling large volumes of unstructured or semi-structured data, providing flexibility and scalability.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A type of database that is optimized for handling large volumes of unstructured or semi-structured data, providing flexibility and scalability." },
+            { question: "What are the advantages of NoSQL databases?", options: ["Scalability, flexibility, performance, schema-less design", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Scalability, flexibility, performance, schema-less design" },
+            { question: "What is NewSQL?", options: ["A class of modern relational databases that combine the benefits of traditional SQL databases with scalability and performance improvements.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A class of modern relational databases that combine the benefits of traditional SQL databases with scalability and performance improvements." },
+
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

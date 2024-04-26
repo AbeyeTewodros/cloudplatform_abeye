@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submodule Page</title>
+    <link rel="stylesheet" href="submod.css">
+</head>
+<body>
+    <div class="container">
+        <section class="submodule-section">
+            <h1>Disaster Recovery and Data Replication</h1>
+            <p>Disaster recovery and data replication are essential components of cloud computing to ensure business continuity and protect against data loss. These strategies involve backing up data, creating redundancy, and implementing failover mechanisms to mitigate the impact of disasters.</p>
+            <h3>Backup and Restore Strategies</h3>
+            <p>Backup and restore strategies involve creating copies of data and storing them in secondary locations to facilitate recovery in the event of data loss or corruption. Common backup and restore strategies include:</p>
+            <ul>
+                <li>Regular Data Backups: Scheduled backups of critical data to secondary storage locations, including cloud storage, tape drives, or off-site servers.</li>
+                <li>Incremental and Differential Backups: Backing up only the changed or modified data since the last backup to optimize storage space and reduce backup time.</li>
+                <li>Point-in-Time Recovery: Creating snapshots or backups of data at specific points in time to facilitate recovery to a known good state.</li>
+            </ul>
+            <h3>High Availability Architectures</h3>
+            <p>High availability architectures aim to minimize downtime and ensure continuous access to applications and services. These architectures involve redundancy, fault tolerance, and automatic failover mechanisms to maintain service availability. Key components of high availability architectures include:</p>
+            <ul>
+                <li>Load Balancers: Distributing incoming traffic across multiple servers to prevent overloading and ensure optimal performance.</li>
+                <li>Redundant Hardware and Infrastructure: Deploying duplicate hardware components and infrastructure in geographically separate locations to minimize the impact of hardware failures or disasters.</li>
+                <li>Automatic Failover: Automatically redirecting traffic to standby or redundant systems in the event of a failure to maintain uninterrupted service.</li>
+            </ul>
+            <h3>Data Replication Methods</h3>
+            <p>Data replication involves creating and maintaining identical copies of data across multiple locations or systems to ensure data availability and integrity. Common data replication methods include:</p>
+            <ul>
+                <li>Synchronous Replication: Replicating data synchronously in real-time to multiple locations to ensure consistency but may introduce latency due to waiting for acknowledgments from all locations.</li>
+                <li>Asynchronous Replication: Replicating data asynchronously with a delay between the primary and secondary copies to minimize performance impact and allow for greater distance between locations.</li>
+                <li>Snapshot Replication: Capturing point-in-time snapshots of data and replicating them to secondary locations for backup and recovery purposes.</li>
+            </ul>
+        </section>
+        <section class="video-section">
+            <h2>Watch this Video</h2>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/_4hESnziWIE" frameborder="0" allowfullscreen></iframe>
+        </section>
+        <button onclick="window.location.href='cloud.html'" class="back-button">Completed</button>
+    </div>
+</body>
+</html>

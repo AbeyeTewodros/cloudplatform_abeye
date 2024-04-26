@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What is Infrastructure as a Service (IaaS)?", options: ["A cloud computing model that provides virtualized computing resources over the internet.", "A cloud computing model that delivers software applications over the internet on a subscription basis.", "A cloud computing model that offers a platform for developers to build, deploy, and manage applications.", "A cloud computing model that provides on-demand access to hardware resources such as servers and storage."], answer: "A cloud computing model that provides virtualized computing resources over the internet." },
+            { question: "What is Platform as a Service (PaaS)?", options: ["A cloud computing model that offers a platform for developers to build, deploy, and manage applications.", "A cloud computing model that provides on-demand access to hardware resources such as servers and storage.", "A cloud computing model that delivers software applications over the internet on a subscription basis.", "A cloud computing model that enables users to access computing resources over the internet without the need for local infrastructure."], answer: "A cloud computing model that offers a platform for developers to build, deploy, and manage applications." },
+            { question: "What is Software as a Service (SaaS)?", options: ["A cloud computing model that delivers software applications over the internet on a subscription basis.", "A cloud computing model that provides virtualized computing resources over the internet.", "A cloud computing model that offers a platform for developers to build, deploy, and manage applications.", "A cloud computing model that enables users to access computing resources over the internet without the need for local infrastructure."], answer: "A cloud computing model that delivers software applications over the internet on a subscription basis." },
+            { question: "What are some examples of Software as a Service (SaaS) applications?", options: ["Email services, office productivity suites, customer relationship management (CRM) software", "Virtual machines, storage, networking infrastructure", "Development tools, middleware, runtime environments", "Operating systems, databases, web servers"], answer: "Email services, office productivity suites, customer relationship management (CRM) software" },
+            { question: "What is the primary benefit of Software as a Service (SaaS)?", options: ["Eliminating the need for users to install, maintain, and update software locally.", "Providing virtualized computing resources over the internet.", "Offering a platform for developers to build, deploy, and manage applications.", "Enabling flexible scaling of IT infrastructure without the need for physical hardware."], answer: "Eliminating the need for users to install, maintain, and update software locally." },
+            { question: "What is the difference between public cloud and private cloud?", options: ["Public cloud services are provided by third-party vendors and accessible to multiple users over the internet, while private cloud services are dedicated to a single organization and hosted either on-premises or by a third-party provider.", "Public cloud services are hosted on-premises, while private cloud services are hosted by third-party vendors.", "Public cloud services are dedicated to a single organization, while private cloud services are accessible to multiple users over the internet.", "Public cloud services are free to use, while private cloud services require a subscription fee."], answer: "Public cloud services are provided by third-party vendors and accessible to multiple users over the internet, while private cloud services are dedicated to a single organization and hosted either on-premises or by a third-party provider." },
+            { question: "What is Hybrid Cloud?", options: ["A cloud computing environment that combines public and private cloud infrastructure, allowing data and applications to move seamlessly between the two environments.", "A cloud computing environment that offers virtualized computing resources over the internet on a subscription basis.", "A cloud computing environment that provides a platform for developers to build, deploy, and manage applications.", "A cloud computing environment that enables users to access computing resources over the internet without the need for local infrastructure."], answer: "A cloud computing environment that combines public and private cloud infrastructure, allowing data and applications to move seamlessly between the two environments." },
+            { question: "What are the benefits of Hybrid Cloud?", options: ["Flexibility, scalability, cost-efficiency, data residency, compliance", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Flexibility, scalability, cost-efficiency, data residency, compliance" },
+            { question: "What is Cloud Computing?", options: ["A model for delivering on-demand computing resources over the internet", "A type of physical server", "A programming language", "A hardware component"], answer: "A model for delivering on-demand computing resources over the internet" },
+            { question: "What are the key characteristics of cloud computing?", options: ["On-demand self-service, broad network access, resource pooling, rapid elasticity, measured service", "Single tenancy, limited access, manual resource provisioning, slow scalability, unpredictable billing", "Legacy infrastructure, proprietary protocols, fixed capacity, high upfront costs", "Manual resource allocation, limited connectivity, proprietary software, fixed pricing"], answer: "On-demand self-service, broad network access, resource pooling, rapid elasticity, measured service" },
+
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

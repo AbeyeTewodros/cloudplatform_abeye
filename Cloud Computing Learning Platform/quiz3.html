@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What are the key milestones in the evolution of cloud computing?", options: ["Introduction of virtualization, rise of SaaS applications, expansion of public cloud providers, hybrid and multi-cloud adoption", "Invention of the internet, introduction of personal computers, development of mainframe computers, emergence of smartphones", "Discovery of electricity, invention of the printing press, development of telecommunication networks, creation of the first computer", "Launch of social media platforms, development of mobile apps, introduction of artificial intelligence, adoption of blockchain technology"], answer: "Introduction of virtualization, rise of SaaS applications, expansion of public cloud providers, hybrid and multi-cloud adoption" },
+            { question: "When did Amazon Web Services (AWS) launch its Elastic Compute Cloud (EC2) service?", options: ["2006", "2010", "2000", "2015"], answer: "2006" },
+            { question: "What is the significance of the introduction of virtualization in cloud computing?", options: ["It allowed multiple virtual machines to run on a single physical server, paving the way for cloud computing.", "It enabled users to access computing resources over the internet without the need for local infrastructure.", "It provided on-demand access to hardware resources such as servers and storage.", "It eliminated the need for users to install, maintain, and update software locally."], answer: "It allowed multiple virtual machines to run on a single physical server, paving the way for cloud computing." },
+            { question: "Which companies pioneered the concept of cloud computing?", options: ["Amazon, Google, Microsoft", "IBM, Oracle, Salesforce", "Apple, Facebook, Twitter", "Intel, Cisco, Adobe"], answer: "Amazon, Google, Microsoft" },
+            { question: "What are some challenges faced by organizations in adopting cloud computing?", options: ["Data security and privacy concerns, compliance requirements, integration complexity", "Limited scalability, high upfront costs, lack of control", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of expertise, regulatory restrictions"], answer: "Data security and privacy concerns, compliance requirements, integration complexity" },
+            { question: "What role did the rise of SaaS applications play in the evolution of cloud computing?", options: ["It demonstrated the benefits of software delivery over the internet.", "It enabled users to access computing resources over the internet without the need for local infrastructure.", "It provided on-demand access to hardware resources such as servers and storage.", "It eliminated the need for users to install, maintain, and update software locally."], answer: "It demonstrated the benefits of software delivery over the internet." },
+            { question: "Which companies are major players in the public cloud market?", options: ["Microsoft (Azure), Google (Google Cloud Platform), IBM (IBM Cloud)", "Apple, Facebook, Twitter", "Amazon, Oracle, Salesforce", "Intel, Cisco, Adobe"], answer: "Microsoft (Azure), Google (Google Cloud Platform), IBM (IBM Cloud)" },
+            { question: "What is the significance of hybrid and multi-cloud adoption?", options: ["It allows organizations to leverage the benefits of both public and private cloud environments.", "It provides on-demand access to hardware resources such as servers and storage.", "It eliminates the need for users to install, maintain, and update software locally.", "It enables users to access computing resources over the internet without the need for local infrastructure."], answer: "It allows organizations to leverage the benefits of both public and private cloud environments." },
+            { question: "What are some benefits of cloud computing for businesses?", options: ["Greater agility, innovation, cost-effectiveness, scalability", "Fixed capacity, limited scalability, high upfront costs", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Greater agility, innovation, cost-effectiveness, scalability" },
+            { question: "What is the main advantage of hybrid cloud environments?", options: ["Flexibility to meet specific business requirements, such as data residency and compliance.", "Fixed capacity, limited scalability, high upfront costs", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Flexibility to meet specific business requirements, such as data residency and compliance." },
+
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

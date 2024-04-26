@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What is machine learning?", options: ["A subset of artificial intelligence that enables systems to learn from data and improve over time without explicit programming.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A subset of artificial intelligence that enables systems to learn from data and improve over time without explicit programming." },
+            { question: "What are the main types of machine learning?", options: ["Supervised learning, unsupervised learning, reinforcement learning", "Public cloud, private cloud, hybrid cloud", "Single tenancy, multi-tenancy", "Mainframe, supercomputer, server cluster, grid computing"], answer: "Supervised learning, unsupervised learning, reinforcement learning" },
+            { question: "What is supervised learning?", options: ["A type of machine learning where the model is trained on labeled data, and learns to make predictions based on input-output pairs.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A type of machine learning where the model is trained on labeled data, and learns to make predictions based on input-output pairs." },
+            { question: "What is unsupervised learning?", options: ["A type of machine learning where the model is trained on unlabeled data, and learns to find patterns and structures within the data.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A type of machine learning where the model is trained on unlabeled data, and learns to find patterns and structures within the data." },
+            { question: "What is reinforcement learning?", options: ["A type of machine learning where an agent learns to make decisions by interacting with an environment and receiving feedback in the form of rewards or penalties.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A type of machine learning where an agent learns to make decisions by interacting with an environment and receiving feedback in the form of rewards or penalties." },
+            { question: "What are some applications of supervised learning?", options: ["Classification, regression, object detection, sentiment analysis", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Classification, regression, object detection, sentiment analysis" },
+            { question: "What are some applications of unsupervised learning?", options: ["Clustering, dimensionality reduction, anomaly detection, association rule learning", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Clustering, dimensionality reduction, anomaly detection, association rule learning" },
+            { question: "What are some applications of reinforcement learning?", options: ["Game playing, robotics, autonomous vehicles, recommendation systems", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Game playing, robotics, autonomous vehicles, recommendation systems" },
+            { question: "What is the training process in machine learning?", options: ["The phase where a model is presented with training data and learns to make predictions or decisions based on that data.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "The phase where a model is presented with training data and learns to make predictions or decisions based on that data." },
+            { question: "What is the evaluation process in machine learning?", options: ["The phase where a trained model is tested on a separate dataset to assess its performance and generalization ability.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "The phase where a trained model is tested on a separate dataset to assess its performance and generalization ability." },
+
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>

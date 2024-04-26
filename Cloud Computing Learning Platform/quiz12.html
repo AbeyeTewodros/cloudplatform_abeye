@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz1.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Quiz Title Section -->
+        <section class="quiz-title">
+            <h1>Quiz 1</h1>
+        </section>
+        
+        <!-- Quiz Questions Section -->
+        <section class="quiz-questions">
+            <form id="quiz-form">
+                <!-- Randomly generated questions and options will be inserted here -->
+            </form>
+            <button id="submit-btn">Submit</button>
+        </section>
+        
+        <!-- Complete Exam Button -->
+        <button id="complete-exam-btn" onclick="window.location.href='cloud.html'">Complete Exam</button>
+    </div>
+    <script>
+        // Array containing the questions and their corresponding correct answers
+        const questions = [
+            { question: "What is linear regression?", options: ["A supervised learning algorithm used for predicting continuous target variables based on one or more input features.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A supervised learning algorithm used for predicting continuous target variables based on one or more input features." },
+            { question: "What are the key assumptions of linear regression?", options: ["Linearity, independence of errors, homoscedasticity, normality of errors", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Linearity, independence of errors, homoscedasticity, normality of errors" },
+            { question: "What is logistic regression?", options: ["A supervised learning algorithm used for binary classification tasks, where the output variable is categorical.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A supervised learning algorithm used for binary classification tasks, where the output variable is categorical." },
+            { question: "What are the key assumptions of logistic regression?", options: ["Binary or ordinal target variable, independence of observations, linearity of independent variables and log odds, no multicollinearity among independent variables", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Binary or ordinal target variable, independence of observations, linearity of independent variables and log odds, no multicollinearity among independent variables" },
+            { question: "What is decision tree?", options: ["A supervised learning algorithm that recursively splits the data into subsets based on the most significant attribute, resulting in a tree-like structure for decision making.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A supervised learning algorithm that recursively splits the data into subsets based on the most significant attribute, resulting in a tree-like structure for decision making." },
+            { question: "What are the advantages of decision trees?", options: ["Interpretability, ease of use, handling non-linear relationships, handling missing values", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Interpretability, ease of use, handling non-linear relationships, handling missing values" },
+            { question: "What is random forest?", options: ["An ensemble learning technique that builds multiple decision trees during training and outputs the mode of the classes (classification) or the mean prediction (regression) of the individual trees.", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "An ensemble learning technique that builds multiple decision trees during training and outputs the mode of the classes (classification) or the mean prediction (regression) of the individual trees." },
+            { question: "What are the advantages of random forest?", options: ["Improved accuracy, robustness to overfitting, handling of large datasets with high dimensionality", "High upfront costs, fixed capacity, limited scalability", "Vendor lock-in, proprietary software, limited customization", "Complexity, lack of control, limited scalability"], answer: "Improved accuracy, robustness to overfitting, handling of large datasets with high dimensionality" },
+            { question: "What is k-nearest neighbors (KNN)?", options: ["A supervised learning algorithm that stores all available cases and classifies new cases based on a similarity measure (e.g., distance functions).", "A cloud computing model.", "A programming language for web development.", "A hardware component."], answer: "A supervised learning algorithm that stores all available cases and classifies new cases based on a similarity measure (e.g., distance functions)." },
+            { question: "How can underfitting be addressed?", options: ["By using more complex models, adding additional features, reducing regularization, and increasing model capacity.", "By providing on-demand access to hardware resources such as servers and storage.", "By eliminating the need for users to install, maintain, and update software locally.", "By enabling users to access computing resources over the internet without the need for local infrastructure."], answer: "By using more complex models, adding additional features, reducing regularization, and increasing model capacity." },
+        ];
+
+        // Function to generate random questions and options
+        function generateQuestions() {
+            const form = document.getElementById("quiz-form");
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3>`;
+                q.options.forEach((option, optionIndex) => {
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = option;
+                    const label = document.createElement("label");
+                    label.textContent = option;
+                    questionDiv.appendChild(input);
+                    questionDiv.appendChild(label);
+                });
+                form.appendChild(questionDiv);
+            });
+        }
+
+        // Function to calculate the score and display the result
+        function calculateScore() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === q.answer) {
+                        score++;
+                    }
+                }
+            });
+            alert(`You scored ${score} out of ${questions.length}`);
+        }
+
+        // Event listener for the submit button
+        document.getElementById("submit-btn").addEventListener("click", function() {
+            calculateScore();
+        });
+
+        // Generate the questions when the page loads
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>
